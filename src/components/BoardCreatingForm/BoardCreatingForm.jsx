@@ -1,7 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { BoardContext } from '../contexts/Board'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/hooks/use-toast"
 
 const BoardCreatingForm = () => {
+  const { toast } = useToast()
   const [boardTitle, setBoardTitle]= useState('')
   const {dispatchBoardActions}= useContext(BoardContext)
 
@@ -12,15 +16,18 @@ const BoardCreatingForm = () => {
     }
     dispatchBoardActions({type: "CREATE_BOARD", payload: boardTitle})
     setBoardTitle("")
+    toast({
+      description: "Your message has been sent.",
+    })
 
 
 
   }
   return (
-    <div className='text-center mt-7 bg-amber-200'>
+    <div className='text-center mt-7'>
       <form type="text" onSubmit={submitHandler}>
-        <input type="text" value={boardTitle} onChange={(e)=>setBoardTitle(e.target.value)} />
-        <button type='submit'>Add Board</button>
+        <Input type="text" className='w-[30%] mx-auto' value={boardTitle} onChange={(e)=>setBoardTitle(e.target.value)} />
+        <Button className="bg-black hover:bg-white hover:border-black hover:border-1 cursor-pointer hover:text-black  text-white mt-3" type='submit'>Add Board</Button>
       </form>
     </div>
   )
