@@ -4,6 +4,10 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router'
 import Boards from './components/pages/Boards.jsx'
 import BoardDetails from './components/pages/BoardDetails.jsx'
+import BoardProvider from './components/contexts/Board.jsx'
+import ListProvider from './components/contexts/List.jsx'
+import TaskProvider from './components/contexts/Task.jsx'
+
 
 const router= createBrowserRouter([
   {path: '/', element: <Boards/>},
@@ -11,5 +15,12 @@ const router= createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}/>
+  <BoardProvider>
+    <ListProvider>
+      <TaskProvider>
+    <RouterProvider router={router}/>
+      </TaskProvider>
+    </ListProvider>
+  </BoardProvider>
+  
 )
